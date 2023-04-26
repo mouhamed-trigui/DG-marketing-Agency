@@ -404,7 +404,38 @@
 
 
 
+<script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 
+<!-- Add the script that sends the email -->
+<script type="text/javascript">
+  // Initialize EmailJS with your user ID
+  emailjs.init("Lrjh6sDFlOfZPf6_F");
+
+  function sendEmail() {
+    // Get form data
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var message = document.getElementById("message").value;
+
+    // Create a template parameter object
+    var templateParams = {
+      from_name: name,
+      to_name: "Ghada",
+      message_html: message,
+      reply_to: email
+    };
+
+    // Send the email
+    emailjs.send("service_rsjtzhv", "template_r7zy2fi", templateParams)
+      .then(function(response) {
+        console.log("SUCCESS!", response.status, response.text);
+        alert("Your message was sent successfully!");
+      }, function(error) {
+        console.log("FAILED...", error);
+        alert("Sorry, your message could not be sent.");
+      });
+  }
+</script>
 
 
 
@@ -417,6 +448,7 @@
       <div class="col-sm-6 col-sm-offset-3 col-xs-12">      
         <input type="text" placeholder="Name" id="name">
         <input type="text" placeholder="Company" id="Company">
+        <input type="text" placeholder="email" id="email">
         <textarea rows="5" placeholder="Message" id="message"></textarea>
         <button class="btn btn-primary" onclick="sendEmail()"><i class="fa fa-paper-plane"></i> Send</button>
       </div>
